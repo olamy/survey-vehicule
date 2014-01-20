@@ -50,6 +50,7 @@ public interface VehiculeRecordDataAccess
 
     /**
      * to retrieve average number of vehicule
+     *
      * @param periodLength
      * @param direction
      * @return Map with entry period start time timestamp since day start, faster access with this key
@@ -58,10 +59,20 @@ public interface VehiculeRecordDataAccess
 
     /**
      * to retrieve average speed of vehicules
+     *
      * @param periodLength
      * @param direction
      * @return Map with entry period start time timestamp since day start, faster access with this key
      */
     Map<Long, AverageResult> getSpeedAverages( long periodLength, char direction );
+
+    /**
+     * to retrieve average distance in meters between vehicules
+     *
+     * @param periodLength
+     * @param direction
+     * @return Map with entry period start time timestamp since day start, faster access with this key
+     */
+    Map<Long, AverageResult> getDistanceAverages( long periodLength, char direction );
 
 }

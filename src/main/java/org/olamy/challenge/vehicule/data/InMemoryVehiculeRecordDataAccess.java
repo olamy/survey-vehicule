@@ -7,6 +7,7 @@ import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +22,11 @@ public class InMemoryVehiculeRecordDataAccess
 {
 
     private static final float WHEEL_BASE_SIZE = (float) 2.5;
+
+    /**
+     * in kph
+     */
+    private static final float AVERAGE_SPEED_PER_HOUR = (float) 60;
 
     private List<VehiculeRecord> vehiculeRecords = new ArrayList<VehiculeRecord>();
 
@@ -211,5 +217,60 @@ public class InMemoryVehiculeRecordDataAccess
 
         }
         return time;
+    }
+
+
+    @Override
+    public Map<Long, AverageResult> getDistanceAverages( long periodLength, char direction )
+    {
+        Map<Long, AverageResult> averageResults = new TreeMap<Long, AverageResult>();
+
+        for ( long currentTime = 0; currentTime < AnalysisConstants.DAYS_MILLIS; currentTime += periodLength )
+        {
+            // -1 because we want to stop just before next increment
+            Map<Integer, List<VehiculeRecord>> found =
+                findVehiculeRecords( direction, currentTime, currentTime + periodLength - 1 );
+            long sum = 0;
+            int entriesNumber = 0;
+            for ( Map.Entry<Integer, List<VehiculeRecord>> entry : found.entrySet() )
+            {
+                if ( entry.getValue().isEmpty() )
+                {
+                    continue;
+                }
+
+                Iterator<VehiculeRecord> vehiculeRecordIterator = entry.getValue().iterator();
+                VehiculeRecord previousVehiculeRecord = vehiculeRecordIterator.next();
+                while ( vehiculeRecordIterator.hasNext() )
+                {
+                    VehiculeRecord vehiculeRecord = vehiculeRecordIterator.next();
+
+                    long time = findTimeBetweenTwoVehiculeRecord(previousVehiculeRecord, vehiculeRecord );
+
+                    sum += ( AVERAGE_SPEED_PER_HOUR * 1000 * time ) / AnalysisConstants.MILLIS_PER_HOUR;
+
+                    entriesNumber++;
+
+                    previousVehiculeRecord = vehiculeRecord;
+                }
+            }
+            // if no values we assume 0 as a distance average
+            if ( entriesNumber == 0 )
+            {
+                averageResults.put( Long.valueOf( currentTime ), new AverageResult( currentTime, 0 ) );
+            }
+            else
+            {
+                averageResults.put( Long.valueOf( currentTime ),
+                                    new AverageResult( currentTime, sum / entriesNumber ) );
+            }
+
+        }
+        return averageResults;
+    }
+
+    private long findTimeBetweenTwoVehiculeRecord( VehiculeRecord first, VehiculeRecord second )
+    {
+        return second.getMarkHits().get( 0 ).getTimestamp() - first.getMarkHits().get( 0 ).getTimestamp();
     }
 }

@@ -37,4 +37,14 @@ public class AverageResult
     {
         this.average = average;
     }
+
+    @Override
+    public String toString()
+    {
+        final StringBuilder sb = new StringBuilder( "AverageResult{" );
+        sb.append( "hour=" ).append( hour );
+        sb.append( ", average=" ).append( average );
+        sb.append( '}' );
+        return sb.toString();
+    }
 }

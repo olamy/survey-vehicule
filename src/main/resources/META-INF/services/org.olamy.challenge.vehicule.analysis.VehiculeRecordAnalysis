@@ -8,3 +8,5 @@ org.olamy.challenge.vehicule.analysis.average.CountPerHourAverageAnalysis
 org.olamy.challenge.vehicule.analysis.peak.PeakHourTimeAnalysis
 
 org.olamy.challenge.vehicule.analysis.speed.SpeedPerHourAverageAnalysis
+
+org.olamy.challenge.vehicule.analysis.distance.DistanceAveragePerHourAnalysis
