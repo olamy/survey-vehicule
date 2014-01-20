@@ -7,6 +7,7 @@ import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Olivier Lamy
@@ -14,7 +15,7 @@ import java.util.List;
 public class VehiculeReaderTest
 {
     @Test
-    public void readSmallData()
+    public void read_small_data()
         throws Exception
     {
         VehiculeRecordDataAccess vehiculeRecordDataAccess = VehiculeHitsReader.read(
@@ -22,7 +23,7 @@ public class VehiculeReaderTest
 
         List<VehiculeRecord> all = vehiculeRecordDataAccess.getAll();
 
-        Assertions.assertThat( all ).isNotNull().isNotEmpty().hasSize( 6 );
+        Assertions.assertThat( all ).isNotNull().isNotEmpty().hasSize( 8 );
 
         // control some entries
         Assertions.assertThat( all.get( 0 ).getMarkHits() ).isNotNull().isNotEmpty().hasSize( 2 );
@@ -66,7 +67,7 @@ public class VehiculeReaderTest
     }
 
     @Test( expected = NonValidLineException.class )
-    public void readBadContentExpectException()
+    public void read_bad_content_expect_exception()
         throws Exception
     {
         VehiculeRecordDataAccess vehiculeRecordDataAccess =
@@ -74,7 +75,7 @@ public class VehiculeReaderTest
     }
 
     @Test( expected = NonValidLineException.class )
-    public void readBadSequenceExpectException()
+    public void read_bad_sequence_expect_exception()
         throws Exception
     {
         VehiculeRecordDataAccess vehiculeRecordDataAccess = VehiculeHitsReader.read(
@@ -82,7 +83,7 @@ public class VehiculeReaderTest
     }
 
     @Test
-    public void readHugeFile()
+    public void read_huge_file()
         throws Exception
     {
         VehiculeRecordDataAccess vehiculeRecordDataAccess = VehiculeHitsReader.read( new File(
@@ -91,7 +92,7 @@ public class VehiculeReaderTest
     }
 
     @Test
-    public void readSmallDataWithDayChange()
+    public void read_small_data_with_day_change()
         throws Exception
     {
         VehiculeRecordDataAccess vehiculeRecordDataAccess = VehiculeHitsReader.read(
@@ -99,14 +100,45 @@ public class VehiculeReaderTest
 
         List<VehiculeRecord> all = vehiculeRecordDataAccess.getAll();
 
-        Assertions.assertThat( all ).isNotNull().isNotEmpty().hasSize( 6 );
+        Assertions.assertThat( all ).isNotNull().isNotEmpty().hasSize( 8 );
 
         //control days
         Assertions.assertThat( all.get( 0 ).getDay() ).isEqualTo( 1 );
         Assertions.assertThat( all.get( 1 ).getDay() ).isEqualTo( 2 );
         Assertions.assertThat( all.get( 2 ).getDay() ).isEqualTo( 3 );
         Assertions.assertThat( all.get( 5 ).getDay() ).isEqualTo( 4 );
+    }
 
+    @Test
+    public void found_data_between_timestamps_directionA()
+        throws Exception
+    {
+        VehiculeRecordDataAccess vehiculeRecordDataAccess = VehiculeHitsReader.read(
+            new File( System.getProperty( "basedir", "." ) + "/src/test/small-sample-data-with-day-change.txt" ) );
+
+        Map<Integer, List<VehiculeRecord>> records =
+            vehiculeRecordDataAccess.findVehicules( DirectionConstants.DIRECTION_A, 4000000, 5000000 );
+
+        Assertions.assertThat( records ).isNotNull().isNotEmpty().hasSize( 3 );
+
+        Assertions.assertThat( vehiculeRecordDataAccess.getDays() ).hasSize( 5 );
+
+        Assertions.assertThat( vehiculeRecordDataAccess.getDirections() ).hasSize( 2 ).contains( 'A', 'B' );
 
     }
+
+    @Test
+    public void not_found_data_between_timestamps()
+        throws Exception
+    {
+        VehiculeRecordDataAccess vehiculeRecordDataAccess = VehiculeHitsReader.read(
+            new File( System.getProperty( "basedir", "." ) + "/src/test/small-sample-data-with-day-change.txt" ) );
+
+        Map<Integer, List<VehiculeRecord>> records =
+            vehiculeRecordDataAccess.findVehicules( DirectionConstants.DIRECTION_A, 1000000, 2000000 );
+
+        Assertions.assertThat( records ).isNotNull().isEmpty();
+
+    }
+
 }

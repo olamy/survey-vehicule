@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ServiceLoader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,7 +64,7 @@ public class VehiculeHitsReader
                 if ( matcher.matches() )
                 {
                     long time = Long.parseLong( matcher.group( 2 ) );
-                    char direction = matcher.group( 1 ).charAt( 0 );
+                    char direction = matcher.group( 1 ).toUpperCase( Locale.getDefault() ).charAt( 0 );
                     if ( direction != DirectionConstants.DIRECTION_A && direction != DirectionConstants.DIRECTION_B )
                     {
                         throw new NonValidLineException(

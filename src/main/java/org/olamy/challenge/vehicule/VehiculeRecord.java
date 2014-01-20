@@ -1,6 +1,7 @@
 package org.olamy.challenge.vehicule;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,9 +28,13 @@ public class VehiculeRecord
         this.day = day;
     }
 
+    /**
+     *
+     * @return never return <code>null</code>
+     */
     public List<MarkHit> getMarkHits()
     {
-        return markHits;
+        return markHits == null ? Collections.<MarkHit>emptyList():markHits;
     }
 
     public void setMarkHits( List<MarkHit> markHits )
