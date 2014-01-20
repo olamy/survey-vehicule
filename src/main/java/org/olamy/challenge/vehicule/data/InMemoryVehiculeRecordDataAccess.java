@@ -173,9 +173,16 @@ public class InMemoryVehiculeRecordDataAccess
                     speedEntriesNumber++;
                 }
             }
-            // we assume we have days :-) so no check
-            averageResults.put( Long.valueOf( currentTime ),
-                                new AverageResult( currentTime, sum / speedEntriesNumber ) );
+            // if no values we assume 0 as a speed average
+            if ( speedEntriesNumber == 0 )
+            {
+                averageResults.put( Long.valueOf( currentTime ), new AverageResult( currentTime, 0 ) );
+            }
+            else
+            {
+                averageResults.put( Long.valueOf( currentTime ),
+                                    new AverageResult( currentTime, sum / speedEntriesNumber ) );
+            }
 
         }
         return averageResults;
