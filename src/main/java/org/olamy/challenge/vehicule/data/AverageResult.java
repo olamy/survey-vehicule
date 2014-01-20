@@ -3,7 +3,7 @@ package org.olamy.challenge.vehicule.data;
 import java.math.BigDecimal;
 
 /**
- * Data model for an average result
+ * Data model for an average result (will be used for average count and speed)
  */
 public class AverageResult
 {

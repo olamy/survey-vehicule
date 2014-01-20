@@ -1,4 +1,4 @@
-package org.olamy.challenge.vehicule.analysis.average;
+package org.olamy.challenge.vehicule.analysis.speed;
 
 import org.olamy.challenge.vehicule.analysis.AbstractAnalysis;
 import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
@@ -13,7 +13,7 @@ import java.util.TreeMap;
 /**
  *
  */
-public abstract class AbstractCountPerTimeAverageAnalysis
+public abstract class AbstractSpeedPerTimeAverageAnalysis
     extends AbstractAnalysis
     implements VehiculeRecordAnalysis
 {
@@ -34,7 +34,7 @@ public abstract class AbstractCountPerTimeAverageAnalysis
         {
             System.out.print( direction + "|" );
 
-            resultsPerDirection.put( direction, vehiculeRecordDataAccess.getCountAverages( increment, direction ) );
+            resultsPerDirection.put( direction, vehiculeRecordDataAccess.getSpeedAverages( increment, direction ) );
         }
 
         for ( long currentTime = 0; currentTime < AnalysisConstants.DAYS_MILLIS; currentTime += increment )

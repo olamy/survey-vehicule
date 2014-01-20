@@ -49,11 +49,19 @@ public interface VehiculeRecordDataAccess
     PeakResult findPeakVolumePeriod( long periodLength, char direction );
 
     /**
-     *
+     * to retrieve average number of vehicule
      * @param periodLength
      * @param direction
      * @return Map with entry period start time timestamp since day start, faster access with this key
      */
-    Map<Long, AverageResult> getAverages( long periodLength, char direction );
+    Map<Long, AverageResult> getCountAverages( long periodLength, char direction );
+
+    /**
+     * to retrieve average speed of vehicules
+     * @param periodLength
+     * @param direction
+     * @return Map with entry period start time timestamp since day start, faster access with this key
+     */
+    Map<Long, AverageResult> getSpeedAverages( long periodLength, char direction );
 
 }

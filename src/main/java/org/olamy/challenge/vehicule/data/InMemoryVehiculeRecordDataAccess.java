@@ -5,9 +5,7 @@ import org.olamy.challenge.vehicule.MarkHit;
 import org.olamy.challenge.vehicule.VehiculeRecord;
 import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +19,8 @@ import java.util.TreeMap;
 public class InMemoryVehiculeRecordDataAccess
     implements VehiculeRecordDataAccess
 {
+
+    private static final float WHEEL_BASE_SIZE = (float) 2.5;
 
     private List<VehiculeRecord> vehiculeRecords = new ArrayList<VehiculeRecord>();
 
@@ -126,7 +126,7 @@ public class InMemoryVehiculeRecordDataAccess
     }
 
     @Override
-    public Map<Long, AverageResult> getAverages( long periodLength, char direction )
+    public Map<Long, AverageResult> getCountAverages( long periodLength, char direction )
     {
         Map<Long, AverageResult> averageResults = new TreeMap<Long, AverageResult>();
 
@@ -142,10 +142,67 @@ public class InMemoryVehiculeRecordDataAccess
             {
                 sum += entry.getValue() == null ? 0 : entry.getValue().size();
             }
-            // we assume we have days :-) so no check
+            // we assume we have days :-) so no check of 0 divide
             averageResults.put( Long.valueOf( currentTime ), new AverageResult( currentTime, sum / days ) );
 
         }
         return averageResults;
+    }
+
+    @Override
+    public Map<Long, AverageResult> getSpeedAverages( long periodLength, char direction )
+    {
+        Map<Long, AverageResult> averageResults = new TreeMap<Long, AverageResult>();
+
+        for ( long currentTime = 0; currentTime < AnalysisConstants.DAYS_MILLIS; currentTime += periodLength )
+        {
+            // -1 because we want to stop just before next increment
+            Map<Integer, List<VehiculeRecord>> found =
+                findVehiculeRecords( direction, currentTime, currentTime + periodLength - 1 );
+            long sum = 0;
+            int speedEntriesNumber = 0;
+            for ( Map.Entry<Integer, List<VehiculeRecord>> entry : found.entrySet() )
+            {
+                // adding speed for all VehiculeRecord
+                for ( VehiculeRecord vehiculeRecord : entry.getValue() )
+                {
+                    long time = findTimeBetweenTwoHits( vehiculeRecord );
+
+                    sum += ( ( WHEEL_BASE_SIZE / 1000 ) * AnalysisConstants.MILLIS_PER_HOUR ) / time;
+
+                    speedEntriesNumber++;
+                }
+            }
+            // we assume we have days :-) so no check
+            averageResults.put( Long.valueOf( currentTime ),
+                                new AverageResult( currentTime, sum / speedEntriesNumber ) );
+
+        }
+        return averageResults;
+    }
+
+    /**
+     * we make it easy and just search the time between two hits of the same direction
+     *
+     * @param vehiculeRecord
+     * @return
+     */
+    private long findTimeBetweenTwoHits( VehiculeRecord vehiculeRecord )
+    {
+        MarkHit firstMarkit = null;
+        long time = 0;
+        for ( MarkHit markHit : vehiculeRecord.getMarkHits() )
+        {
+            if ( firstMarkit == null )
+            {
+                firstMarkit = markHit;
+            }
+            else if ( markHit.getDirection() == firstMarkit.getDirection() )
+            {
+                return markHit.getTimestamp() - firstMarkit.getTimestamp();
+            }
+
+        }
+        return time;
     }
 }

@@ -9,12 +9,8 @@ import org.olamy.challenge.vehicule.NonValidLineException;
 import org.olamy.challenge.vehicule.VehiculeHitsReader;
 import org.olamy.challenge.vehicule.VehiculeRecord;
 import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
-import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -173,7 +169,7 @@ public class VehiculeReaderTest
             new File( System.getProperty( "basedir", "." ) + "/src/test/small-sample-data-average.txt" ) );
 
         Map<Long, AverageResult> results =
-            vehiculeRecordDataAccess.getAverages( AnalysisConstants.MILLIS_PER_HOUR, 'A' );
+            vehiculeRecordDataAccess.getCountAverages( AnalysisConstants.MILLIS_PER_HOUR, 'A' );
 
         AverageResult result = results.get( Long.valueOf( 57600000 ) );
 
