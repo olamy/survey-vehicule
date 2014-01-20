@@ -9,9 +9,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Olivier Lamy
- */
 public class VehiculeReaderTest
 {
     @Test
@@ -70,16 +67,14 @@ public class VehiculeReaderTest
     public void read_bad_content_expect_exception()
         throws Exception
     {
-        VehiculeRecordDataAccess vehiculeRecordDataAccess =
-            VehiculeHitsReader.read( new File( System.getProperty( "basedir", "." ) + "/src/test/crappy-data.txt" ) );
+        VehiculeHitsReader.read( new File( System.getProperty( "basedir", "." ) + "/src/test/crappy-data.txt" ) );
     }
 
     @Test( expected = NonValidLineException.class )
     public void read_bad_sequence_expect_exception()
         throws Exception
     {
-        VehiculeRecordDataAccess vehiculeRecordDataAccess = VehiculeHitsReader.read(
-            new File( System.getProperty( "basedir", "." ) + "/src/test/bad-sequence-data.txt" ) );
+        VehiculeHitsReader.read( new File( System.getProperty( "basedir", "." ) + "/src/test/bad-sequence-data.txt" ) );
     }
 
     @Test
@@ -117,7 +112,7 @@ public class VehiculeReaderTest
             new File( System.getProperty( "basedir", "." ) + "/src/test/small-sample-data-with-day-change.txt" ) );
 
         Map<Integer, List<VehiculeRecord>> records =
-            vehiculeRecordDataAccess.findVehicules( DirectionConstants.DIRECTION_A, 4000000, 5000000 );
+            vehiculeRecordDataAccess.findVehiculeRecords( DirectionConstants.DIRECTION_A, 4000000, 5000000 );
 
         Assertions.assertThat( records ).isNotNull().isNotEmpty().hasSize( 3 );
 
@@ -135,7 +130,7 @@ public class VehiculeReaderTest
             new File( System.getProperty( "basedir", "." ) + "/src/test/small-sample-data-with-day-change.txt" ) );
 
         Map<Integer, List<VehiculeRecord>> records =
-            vehiculeRecordDataAccess.findVehicules( DirectionConstants.DIRECTION_A, 1000000, 2000000 );
+            vehiculeRecordDataAccess.findVehiculeRecords( DirectionConstants.DIRECTION_A, 1000000, 2000000 );
 
         Assertions.assertThat( records ).isNotNull().isEmpty();
 

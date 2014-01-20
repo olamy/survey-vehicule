@@ -4,6 +4,7 @@ import org.olamy.challenge.vehicule.DirectionConstants;
 import org.olamy.challenge.vehicule.DirectionMatcherBuilder;
 import org.olamy.challenge.vehicule.MarkHit;
 import org.olamy.challenge.vehicule.VehiculeRecord;
+import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +16,6 @@ import java.util.Set;
 /**
  * So it's in memory but some data access performance could be improved with some indexing
  * but later :-)
- *
- * @author Olivier Lamy
  */
 public class InMemoryVehiculeRecordDataAccess
     implements VehiculeRecordDataAccess
@@ -37,7 +36,7 @@ public class InMemoryVehiculeRecordDataAccess
     }
 
     @Override
-    public Map<Integer, List<VehiculeRecord>> findVehicules( char direction, long start, long end )
+    public Map<Integer, List<VehiculeRecord>> findVehiculeRecords( char direction, long start, long end )
     {
         Map<Integer, List<VehiculeRecord>> found = new HashMap<Integer, List<VehiculeRecord>>();
 
@@ -99,5 +98,29 @@ public class InMemoryVehiculeRecordDataAccess
         }
 
         return new ArrayList<Character>( directions );
+    }
+
+    @Override
+    public PeakResult findPeakVolumePeriod( long periodLength, char direction )
+    {
+        PeakResult peakResult = new PeakResult( 1, 0, 0 );
+        for ( Integer day : getDays() )
+        {
+            for ( long currentTime = 0; currentTime < AnalysisConstants.DAYS_MILLIS; currentTime += periodLength )
+            {
+                // -1 because we want to stop just before next increment
+                Map<Integer, List<VehiculeRecord>> found =
+                    findVehiculeRecords( direction, currentTime, currentTime + periodLength - 1 );
+                List<VehiculeRecord> vehiculeRecords = found.get( day );
+                int number = vehiculeRecords == null ? 0 : vehiculeRecords.size();
+                if ( number > peakResult.getNumber() )
+                {
+                    peakResult = new PeakResult( vehiculeRecords.get( 0 ).getDay(), currentTime, number );
+                }
+            }
+        }
+
+        return peakResult;
+
     }
 }

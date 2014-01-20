@@ -1,6 +1,8 @@
-package org.olamy.challenge.vehicule.analysis;
+package org.olamy.challenge.vehicule.analysis.average;
 
 import org.olamy.challenge.vehicule.VehiculeRecord;
+import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
+import org.olamy.challenge.vehicule.analysis.VehiculeRecordAnalysis;
 import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 
 import java.text.SimpleDateFormat;
@@ -10,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public abstract class AbstractCountPerTimeAverageAnalysis
     implements VehiculeRecordAnalysis
@@ -41,7 +43,7 @@ public abstract class AbstractCountPerTimeAverageAnalysis
             {
                 // -1 because we want to stop just before next increment
                 Map<Integer, List<VehiculeRecord>> found =
-                    vehiculeRecordDataAccess.findVehicules( direction, currentTime, currentTime + increment - 1 );
+                    vehiculeRecordDataAccess.findVehiculeRecords( direction, currentTime, currentTime + increment - 1 );
                 long sum = 0;
                 for ( Map.Entry<Integer, List<VehiculeRecord>> entry : found.entrySet() )
                 {

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public class VehiculeRecord
 {

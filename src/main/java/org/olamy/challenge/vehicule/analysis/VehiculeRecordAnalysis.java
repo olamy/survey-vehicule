@@ -3,7 +3,7 @@ package org.olamy.challenge.vehicule.analysis;
 import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public interface VehiculeRecordAnalysis
 {

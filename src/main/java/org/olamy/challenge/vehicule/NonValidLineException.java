@@ -1,7 +1,7 @@
 package org.olamy.challenge.vehicule;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public class NonValidLineException
     extends Exception

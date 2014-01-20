@@ -1,12 +1,10 @@
-package org.olamy.challenge.vehicule.analysis;
+package org.olamy.challenge.vehicule.analysis.count;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
+import org.olamy.challenge.vehicule.analysis.VehiculeRecordAnalysis;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public class VehiculePerHalfHourCountAnalysis
     extends AbstractCountPerTimeAnalysis

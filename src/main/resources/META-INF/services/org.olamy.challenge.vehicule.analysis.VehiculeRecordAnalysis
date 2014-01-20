@@ -1,6 +1,8 @@
-org.olamy.challenge.vehicule.analysis.DirectionTotalCountAnalysis
-org.olamy.challenge.vehicule.analysis.VehiculePerHourCountAnalysis
-org.olamy.challenge.vehicule.analysis.VehiculePerHalfHourCountAnalysis
-org.olamy.challenge.vehicule.analysis.VehiculePerTwentyMinutesCountAnalysis
-org.olamy.challenge.vehicule.analysis.VehiculePerQuarterHourCountAnalysis
-org.olamy.challenge.vehicule.analysis.CountPerHourAverageAnalysis
+org.olamy.challenge.vehicule.analysis.count.DirectionTotalCountAnalysis
+org.olamy.challenge.vehicule.analysis.count.VehiculePerHourCountAnalysis
+org.olamy.challenge.vehicule.analysis.count.VehiculePerHalfHourCountAnalysis
+org.olamy.challenge.vehicule.analysis.count.VehiculePerTwentyMinutesCountAnalysis
+org.olamy.challenge.vehicule.analysis.count.VehiculePerQuarterHourCountAnalysis
+org.olamy.challenge.vehicule.analysis.average.CountPerHourAverageAnalysis
+
+org.olamy.challenge.vehicule.analysis.peak.PeakHourTimeAnalysis

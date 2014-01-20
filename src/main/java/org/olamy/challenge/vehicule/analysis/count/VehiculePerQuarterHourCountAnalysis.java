@@ -1,7 +1,10 @@
-package org.olamy.challenge.vehicule.analysis;
+package org.olamy.challenge.vehicule.analysis.count;
+
+import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
+import org.olamy.challenge.vehicule.analysis.VehiculeRecordAnalysis;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public class VehiculePerQuarterHourCountAnalysis
     extends AbstractCountPerTimeAnalysis

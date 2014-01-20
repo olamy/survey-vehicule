@@ -7,7 +7,7 @@ import java.util.List;
  * to indicate direction B is A then B where A is only A in the list
  * so at least it's delegated to this matcher so easy to enhance
  *
- * @author Olivier Lamy
+ *
  */
 public interface DirectionMatcher
 {

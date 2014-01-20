@@ -1,7 +1,10 @@
-package org.olamy.challenge.vehicule.analysis;
+package org.olamy.challenge.vehicule.analysis.average;
+
+import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
+import org.olamy.challenge.vehicule.analysis.average.AbstractCountPerTimeAverageAnalysis;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public class CountPerHourAverageAnalysis
     extends AbstractCountPerTimeAverageAnalysis

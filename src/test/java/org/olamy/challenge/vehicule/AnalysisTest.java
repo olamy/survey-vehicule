@@ -1,13 +1,13 @@
 package org.olamy.challenge.vehicule;
 
 import org.junit.Test;
-import org.olamy.challenge.vehicule.analysis.DirectionTotalCountAnalysis;
+import org.olamy.challenge.vehicule.analysis.count.DirectionTotalCountAnalysis;
 import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 
 import java.io.File;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public class AnalysisTest
 {

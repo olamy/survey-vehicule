@@ -3,7 +3,7 @@ package org.olamy.challenge.vehicule.analysis;
 import java.util.Comparator;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public class VehiculeRecordAnalysisComparator
     implements Comparator<VehiculeRecordAnalysis>

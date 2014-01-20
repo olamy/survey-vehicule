@@ -3,7 +3,7 @@ package org.olamy.challenge.vehicule;
 import java.util.List;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public class DirectionMatcherBuilder
 {

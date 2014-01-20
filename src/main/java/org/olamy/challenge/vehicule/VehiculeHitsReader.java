@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * <p/>
  * TODO vehicule hits reader can be an interface too with various implementations
  *
- * @author Olivier Lamy
+ *
  */
 public class VehiculeHitsReader
 {

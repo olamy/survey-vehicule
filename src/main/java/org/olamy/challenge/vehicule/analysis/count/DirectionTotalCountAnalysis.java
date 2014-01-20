@@ -1,13 +1,15 @@
-package org.olamy.challenge.vehicule.analysis;
+package org.olamy.challenge.vehicule.analysis.count;
 
 import org.olamy.challenge.vehicule.VehiculeRecord;
+import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
+import org.olamy.challenge.vehicule.analysis.VehiculeRecordAnalysis;
 import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public class DirectionTotalCountAnalysis
     implements VehiculeRecordAnalysis
@@ -40,10 +42,10 @@ public class DirectionTotalCountAnalysis
 
             // morning first and evening
             Map<Integer, List<VehiculeRecord>> recordMorningPerDay =
-                vehiculeRecordDataAccess.findVehicules( direction, 0, AnalysisConstants.HALF_DAYS_MILLIS );
+                vehiculeRecordDataAccess.findVehiculeRecords( direction, 0, AnalysisConstants.HALF_DAYS_MILLIS );
             Map<Integer, List<VehiculeRecord>> recordEveningPerDay =
-                vehiculeRecordDataAccess.findVehicules( direction, AnalysisConstants.HALF_DAYS_MILLIS,
-                                                        AnalysisConstants.DAYS_MILLIS );
+                vehiculeRecordDataAccess.findVehiculeRecords( direction, AnalysisConstants.HALF_DAYS_MILLIS,
+                                                              AnalysisConstants.DAYS_MILLIS );
 
             System.out.println( "----------------------------------" );
             System.out.println( "Vehicules direction " + direction );

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public interface VehiculeRecordDataAccess
 {
@@ -23,7 +23,7 @@ public interface VehiculeRecordDataAccess
      * @param end
      * @return
      */
-    Map<Integer, List<VehiculeRecord>> findVehicules( char direction, long start, long end );
+    Map<Integer, List<VehiculeRecord>> findVehiculeRecords( char direction, long start, long end );
 
     /**
      * return days with record (days start @ 1)
@@ -38,5 +38,13 @@ public interface VehiculeRecordDataAccess
      * @return
      */
     List<Character> getDirections();
+
+    /**
+     * to find the peak volume for a period length for a direction
+     * @param periodLength
+     * @param direction
+     * @return
+     */
+    PeakResult findPeakVolumePeriod( long periodLength, char direction );
 
 }

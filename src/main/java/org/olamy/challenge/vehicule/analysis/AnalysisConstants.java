@@ -1,7 +1,7 @@
 package org.olamy.challenge.vehicule.analysis;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public interface AnalysisConstants
 {

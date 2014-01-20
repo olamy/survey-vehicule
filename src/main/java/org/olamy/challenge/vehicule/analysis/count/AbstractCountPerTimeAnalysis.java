@@ -1,6 +1,8 @@
-package org.olamy.challenge.vehicule.analysis;
+package org.olamy.challenge.vehicule.analysis.count;
 
 import org.olamy.challenge.vehicule.VehiculeRecord;
+import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
+import org.olamy.challenge.vehicule.analysis.VehiculeRecordAnalysis;
 import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 
 import java.text.SimpleDateFormat;
@@ -10,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Olivier Lamy
+ *
  */
 public abstract class AbstractCountPerTimeAnalysis
     implements VehiculeRecordAnalysis
@@ -44,7 +46,8 @@ public abstract class AbstractCountPerTimeAnalysis
                 {
                     // -1 because we want to stop just before next increment
                     Map<Integer, List<VehiculeRecord>> found =
-                        vehiculeRecordDataAccess.findVehicules( direction, currentTime, currentTime + increment - 1 );
+                        vehiculeRecordDataAccess.findVehiculeRecords( direction, currentTime,
+                                                                      currentTime + increment - 1 );
                     List<VehiculeRecord> vehiculeRecords = found.get( day );
                     int number = vehiculeRecords == null ? 0 : vehiculeRecords.size();
                     System.out.print( "" + number + "|" );
