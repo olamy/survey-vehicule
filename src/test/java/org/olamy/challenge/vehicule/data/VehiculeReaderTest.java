@@ -8,9 +8,13 @@ import org.olamy.challenge.vehicule.MarkHit;
 import org.olamy.challenge.vehicule.NonValidLineException;
 import org.olamy.challenge.vehicule.VehiculeHitsReader;
 import org.olamy.challenge.vehicule.VehiculeRecord;
+import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
 import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -100,13 +104,13 @@ public class VehiculeReaderTest
 
         List<VehiculeRecord> all = vehiculeRecordDataAccess.getAll();
 
-        Assertions.assertThat( all ).isNotNull().isNotEmpty().hasSize( 8 );
+        Assertions.assertThat( all ).isNotNull().isNotEmpty().hasSize( 11 );
 
         //control days
         Assertions.assertThat( all.get( 0 ).getDay() ).isEqualTo( 1 );
         Assertions.assertThat( all.get( 1 ).getDay() ).isEqualTo( 2 );
         Assertions.assertThat( all.get( 2 ).getDay() ).isEqualTo( 3 );
-        Assertions.assertThat( all.get( 5 ).getDay() ).isEqualTo( 4 );
+        Assertions.assertThat( all.get( 6 ).getDay() ).isEqualTo( 4 );
     }
 
     @Test
@@ -140,5 +144,27 @@ public class VehiculeReaderTest
         Assertions.assertThat( records ).isNotNull().isEmpty();
 
     }
+
+    @Test
+    public void found_peak()
+        throws Exception
+    {
+        VehiculeRecordDataAccess vehiculeRecordDataAccess = VehiculeHitsReader.read(
+            new File( System.getProperty( "basedir", "." ) + "/src/test/small-sample-data-with-day-change.txt" ) );
+
+        PeakResult peakResult = vehiculeRecordDataAccess.findPeakVolumePeriod( AnalysisConstants.MILLIS_PER_HOUR, 'A' );
+
+        Assertions.assertThat( peakResult.getNumber() ).isEqualTo( 3 );
+        Assertions.assertThat( peakResult.getDay() ).isEqualTo( 4 );
+        Assertions.assertThat( peakResult.getHour() ).isEqualTo( 57600000 );
+
+        peakResult = vehiculeRecordDataAccess.findPeakVolumePeriod( AnalysisConstants.MILLIS_PER_HOUR, 'B' );
+
+        Assertions.assertThat( peakResult.getNumber() ).isEqualTo( 2 );
+        Assertions.assertThat( peakResult.getDay() ).isEqualTo( 3 );
+        Assertions.assertThat( peakResult.getHour() ).isEqualTo( 0 );
+    }
+
+
 
 }
