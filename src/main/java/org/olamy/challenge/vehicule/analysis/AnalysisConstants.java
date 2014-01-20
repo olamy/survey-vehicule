@@ -10,4 +10,6 @@ public interface AnalysisConstants
     final long DAYS_MILLIS = MILLIS_PER_HOUR * 24;
 
     final long HALF_DAYS_MILLIS = DAYS_MILLIS / 2;
+
+    final String HOUR_PATTERN = "HH:mm";
 }
