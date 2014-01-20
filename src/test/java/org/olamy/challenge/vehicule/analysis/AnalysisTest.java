@@ -1,6 +1,8 @@
-package org.olamy.challenge.vehicule;
+package org.olamy.challenge.vehicule.analysis;
 
 import org.junit.Test;
+import org.olamy.challenge.vehicule.VehiculeHitsReader;
+import org.olamy.challenge.vehicule.VehiculeRecordAnalyzer;
 import org.olamy.challenge.vehicule.analysis.count.DirectionTotalCountAnalysis;
 import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 

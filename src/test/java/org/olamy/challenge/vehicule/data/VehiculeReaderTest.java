@@ -1,8 +1,13 @@
-package org.olamy.challenge.vehicule;
+package org.olamy.challenge.vehicule.data;
 
 import org.fest.assertions.api.Assertions;
 import org.fest.assertions.core.Condition;
 import org.junit.Test;
+import org.olamy.challenge.vehicule.DirectionConstants;
+import org.olamy.challenge.vehicule.MarkHit;
+import org.olamy.challenge.vehicule.NonValidLineException;
+import org.olamy.challenge.vehicule.VehiculeHitsReader;
+import org.olamy.challenge.vehicule.VehiculeRecord;
 import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 
 import java.io.File;
