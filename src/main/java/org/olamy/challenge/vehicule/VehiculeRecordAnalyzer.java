@@ -50,6 +50,8 @@ public class VehiculeRecordAnalyzer
             analysisList.add( iterator.next() );
         }
 
+        // ordering analysis
+
         Collections.sort( analysisList, VehiculeRecordAnalysisComparator.INSTANCE );
 
         System.out.println( "----------------------------------------------------------" );
@@ -65,7 +67,7 @@ public class VehiculeRecordAnalyzer
         }
 
         System.out.println( "---------------------------------------------------" );
-        System.out.println( "That's finished, we hope you got fun!");
+        System.out.println( "That's finished, we hope you got fun!" );
         System.out.println( "Was too fast? So try again to finish your drink!!" );
         System.out.println( "---------------------------------------------------" );
 

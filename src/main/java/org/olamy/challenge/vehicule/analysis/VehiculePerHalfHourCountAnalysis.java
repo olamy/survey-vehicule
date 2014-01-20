@@ -1,5 +1,10 @@
 package org.olamy.challenge.vehicule.analysis;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 /**
  * @author Olivier Lamy
  */
@@ -7,7 +12,6 @@ public class VehiculePerHalfHourCountAnalysis
     extends AbstractCountPerTimeAnalysis
     implements VehiculeRecordAnalysis
 {
-
 
     @Override
     public String getTitle()
@@ -28,9 +32,4 @@ public class VehiculePerHalfHourCountAnalysis
         return AnalysisConstants.MILLIS_PER_HOUR / 2;
     }
 
-    @Override
-    protected String formatTime( long time )
-    {
-        return Long.toString( time / AnalysisConstants.MILLIS_PER_HOUR );
-    }
 }

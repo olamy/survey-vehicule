@@ -1,3 +1,6 @@
 org.olamy.challenge.vehicule.analysis.DirectionTotalCountAnalysis
 org.olamy.challenge.vehicule.analysis.VehiculePerHourCountAnalysis
 org.olamy.challenge.vehicule.analysis.VehiculePerHalfHourCountAnalysis
+org.olamy.challenge.vehicule.analysis.VehiculePerTwentyMinutesCountAnalysis
+org.olamy.challenge.vehicule.analysis.VehiculePerQuarterHourCountAnalysis
+org.olamy.challenge.vehicule.analysis.CountPerHourAverageAnalysis

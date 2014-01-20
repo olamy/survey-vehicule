@@ -4,6 +4,7 @@ import org.olamy.challenge.vehicule.VehiculeRecord;
 import org.olamy.challenge.vehicule.data.VehiculeRecordDataAccess;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Map;
 public abstract class AbstractCountPerTimeAnalysis
     implements VehiculeRecordAnalysis
 {
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "HH:mm" );
 
     @Override
     public void displayResult( VehiculeRecordDataAccess vehiculeRecordDataAccess )
@@ -58,6 +60,13 @@ public abstract class AbstractCountPerTimeAnalysis
 
     protected abstract long getIncrement();
 
-    protected abstract String formatTime( long time );
+    protected String formatTime( long time )
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set( Calendar.HOUR_OF_DAY, 0 );
+        calendar.set( Calendar.MINUTE, 0 );
+        calendar.set( Calendar.MILLISECOND, 0 );
+        return simpleDateFormat.format( new Date( calendar.getTime().getTime() + time ) );
+    }
 
 }
