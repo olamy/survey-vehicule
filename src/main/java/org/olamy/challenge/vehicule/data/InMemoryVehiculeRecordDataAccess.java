@@ -1,17 +1,18 @@
 package org.olamy.challenge.vehicule.data;
 
-import org.olamy.challenge.vehicule.DirectionConstants;
 import org.olamy.challenge.vehicule.DirectionMatcherBuilder;
 import org.olamy.challenge.vehicule.MarkHit;
 import org.olamy.challenge.vehicule.VehiculeRecord;
 import org.olamy.challenge.vehicule.analysis.AnalysisConstants;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * So it's in memory but some data access performance could be improved with some indexing
@@ -38,7 +39,7 @@ public class InMemoryVehiculeRecordDataAccess
     @Override
     public Map<Integer, List<VehiculeRecord>> findVehiculeRecords( char direction, long start, long end )
     {
-        Map<Integer, List<VehiculeRecord>> found = new HashMap<Integer, List<VehiculeRecord>>();
+        Map<Integer, List<VehiculeRecord>> found = new TreeMap<Integer, List<VehiculeRecord>>();
 
         for ( VehiculeRecord vehiculeRecord : vehiculeRecords )
         {
@@ -122,5 +123,29 @@ public class InMemoryVehiculeRecordDataAccess
 
         return peakResult;
 
+    }
+
+    @Override
+    public Map<Long, AverageResult> getAverages( long periodLength, char direction )
+    {
+        Map<Long, AverageResult> averageResults = new TreeMap<Long, AverageResult>();
+
+        int days = getDays().size();
+
+        for ( long currentTime = 0; currentTime < AnalysisConstants.DAYS_MILLIS; currentTime += periodLength )
+        {
+            // -1 because we want to stop just before next increment
+            Map<Integer, List<VehiculeRecord>> found =
+                findVehiculeRecords( direction, currentTime, currentTime + periodLength - 1 );
+            long sum = 0;
+            for ( Map.Entry<Integer, List<VehiculeRecord>> entry : found.entrySet() )
+            {
+                sum += entry.getValue() == null ? 0 : entry.getValue().size();
+            }
+            // we assume we have days :-) so no check
+            averageResults.put( Long.valueOf( currentTime ), new AverageResult( currentTime, sum / days ) );
+
+        }
+        return averageResults;
     }
 }

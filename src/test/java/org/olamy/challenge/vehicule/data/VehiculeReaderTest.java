@@ -165,6 +165,19 @@ public class VehiculeReaderTest
         Assertions.assertThat( peakResult.getHour() ).isEqualTo( 0 );
     }
 
+    @Test
+    public void get_averages()
+        throws Exception
+    {
+        VehiculeRecordDataAccess vehiculeRecordDataAccess = VehiculeHitsReader.read(
+            new File( System.getProperty( "basedir", "." ) + "/src/test/small-sample-data-average.txt" ) );
 
+        Map<Long, AverageResult> results =
+            vehiculeRecordDataAccess.getAverages( AnalysisConstants.MILLIS_PER_HOUR, 'A' );
+
+        AverageResult result = results.get( Long.valueOf( 57600000 ) );
+
+        Assertions.assertThat( result.getAverage() ).isEqualTo( (float) 2.0 );
+    }
 
 }

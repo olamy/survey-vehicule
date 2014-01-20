@@ -41,10 +41,19 @@ public interface VehiculeRecordDataAccess
 
     /**
      * to find the peak volume for a period length for a direction
+     *
      * @param periodLength
      * @param direction
      * @return
      */
     PeakResult findPeakVolumePeriod( long periodLength, char direction );
+
+    /**
+     *
+     * @param periodLength
+     * @param direction
+     * @return Map with entry period start time timestamp since day start, faster access with this key
+     */
+    Map<Long, AverageResult> getAverages( long periodLength, char direction );
 
 }
